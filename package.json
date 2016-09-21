@@ -1,0 +1,15 @@
+{
+  "name": "spaproject",
+  "version": "1.0.0",
+  "description": "spa for project at 21.09.2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "gulp": "^3.9.1"
+  }
+}

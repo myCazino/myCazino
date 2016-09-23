@@ -4,9 +4,23 @@
 <head>
     <title>myCazino</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/css/styles.css" type="text/css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 </head>
 
 <body>
+    <nav>
+        <ul id="pages">
+            <li><a href="#/register" data-src="assets/pages/register.html" data-js="assets/js/register.js">Регистрация</a></li>
+            <li><a href="#/author" data-src="assets/pages/author.html" data-js="assets/js/author.js">Авторизация</a></li>
+        </ul>
+    </nav>
+    <section id="app" data-pages="#pages"></section>
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/javascript" src="assets/js/backendless.js"></script>
+    <script type="text/javascript" src="assets/js/author.js"></script>
     
 </body>
 

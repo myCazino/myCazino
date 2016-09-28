@@ -3,6 +3,7 @@ var mainBowerFiles = require('main-bower-files');
 var browserSync = require('browser-sync');
 var rigger = require('gulp-rigger');
 var del = require('del');
+const autoprefixer = require('gulp-autoprefixer');
 
 var config = {
     src: {
@@ -77,7 +78,17 @@ gulp.task('browser-sync', function() { // Создаем таск browser-sync
 // задача reload - перезапускает browser-sync для корректного отображения изменений
 gulp.task('reload', ['rigger', 'mainfiles'], function() {
     browserSync.reload();
-})
+});
+
+// задача autopref - запускает gulp-autoprefixer 
+gulp.task('prefix', () =>
+	gulp.src(config.src.main + config.src.css + '/**/*.css')
+		.pipe(autoprefixer({
+			browsers: ['> 5%'],
+			cascade: false
+		}))
+		.pipe(gulp.dest(config.dest.main + config.dest.css))
+);
 
 // задача clean - чистим dist
 gulp.task('clean', function() {
@@ -94,9 +105,9 @@ gulp.task('clean', function() {
 
 // в случае изменения сущестующих или появления новых файлов - выполняем задачи js(вывод в консоль сообщения) и reload - перезапуск browser-sync 
 // аналогично по css и html
-gulp.task('watch', ['clean', 'browser-sync', 'js', 'css', 'html', 'rigger', 'mainfiles'], function() {
+gulp.task('watch', ['clean', 'browser-sync', 'prefix', 'js', 'css', 'html', 'rigger', 'mainfiles'], function() {
     gulp.watch(config.src.main + config.src.js + '**/*.js', ['js', 'reload']);
-    gulp.watch(config.src.main + config.src.css + '**/*.css', ['css', 'reload']);
+    gulp.watch(config.src.main + config.src.css + '**/*.css', ['prefix', 'css', 'reload']);
     gulp.watch(config.src.main + '**/*.html', ['html', 'reload']);
 
 });

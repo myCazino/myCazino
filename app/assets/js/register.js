@@ -2,10 +2,10 @@ app.currentModule = (function($) {
     return {
         init: function(obj, callback) {
             console.log("Инициализируем модуль регистрации");
-            var APPLICATION_ID = '24E6FCCB-4B67-AE1A-FF55-22A9CE465E00',
-            SECRET_KEY = '897CAEFC-92BA-3EE7-FFE0-B9160A48B700',
-            VERSION = 'v1'; //default application version;
-            Backendless.initApp(APPLICATION_ID, SECRET_KEY, VERSION);
+            //var APPLICATION_ID = '24E6FCCB-4B67-AE1A-FF55-22A9CE465E00',
+            //SECRET_KEY = '897CAEFC-92BA-3EE7-FFE0-B9160A48B700',
+            //VERSION = 'v1'; //default application version;
+            //Backendless.initApp(app.conf.appId, app.conf.jsSecretKey, app.conf.version);
             obj = obj || new Object(null);
             callback = callback || function() {
                 return false;
@@ -17,7 +17,7 @@ app.currentModule = (function($) {
                 user["password"] = obj.find("input[name=pass]").val();
                 user.name = obj.find("input[name=first_name]").val();
                 //Backendless.UserService.register(user);
-                Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
+                app.Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
             });
             
             function userRegistered(user) {

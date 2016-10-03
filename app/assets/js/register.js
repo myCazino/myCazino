@@ -17,7 +17,7 @@ app.currentModule = (function($) {
                 user["password"] = obj.find("input[name=pass]").val();
                 user.name = obj.find("input[name=first_name]").val();
                 //Backendless.UserService.register(user);
-                app.Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
+                Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
             });
             
             function userRegistered(user) {

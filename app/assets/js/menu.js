@@ -5,10 +5,16 @@ var menu = (function($) {
 
     $ulAnLogged.append($('<li><a href="#/" data-src="assets/pages/index.html" data-js="assets/js/index.js">О приложении</a></li>'));
     $ulLogged.append($('<li><a href="#/" data-src="assets/pages/index.html" data-js="assets/js/index.js">О приложении</a></li>'));
+    $ulLogged.append($('<li><a href="#/bandit">Однорукий бандит</a></li>'));
 
-    var $li = $('<li>LogOut</li>');
+    var $li = $('<li class="logout"><a href="#">LogOut</a></li>');
+    
+    var $cab = $('<li><a href="#/cabinet" data-src="assets/pages/cabinet.html" data-js="assets/js/cabinet.js">Кабинет пользователя</a></li>');
+    var $fortuna = $('<li><a href="#/fortuna" data-src="assets/pages/fortuna.html" data-js="assets/js/fortuna.js">Колесо фортуны</a></li>');
     //$li.append($('<a id="logOutHref">logOut</a>').on("click", function(e){e.preventDefault();}));
     $ulLogged.append($li);
+    $ulLogged.append($fortuna);
+    $ulLogged.append($cab);
 
 
     $ulAnLogged.append($([

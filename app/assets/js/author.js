@@ -11,7 +11,7 @@ app.currentModule = (function($) {
                 return false;
             }
             
-            obj.find("input[id=auth]").off("click").on("click", function() {
+            obj.find("#auth").off("click").on("click", function() {
                 //var user = new Backendless.User();
                 //debugger;
                 var email = obj.find("input[name=mail]").val();

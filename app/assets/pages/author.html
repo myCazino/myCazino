@@ -1,7 +1,12 @@
-<form>
-    <div class="authorised">
-        <input placeholder="Введите email" name="mail"><br>
-        <input placeholder="Введите пароль" type="password" name="pass"><br>
-        <input id="auth" type="button" value="Отправить">
-    </div>
+<form class="authorised col-md-6 col-sm-12">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email адресс</label>
+    <input type="email" name="mail" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Пароль</label>
+    <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  
+  <button id="auth" type="button" class="btn btn-default">Отправить</button>
 </form>

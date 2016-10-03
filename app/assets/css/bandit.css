@@ -1,0 +1,13 @@
+ul.carousel-wrapper {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-wrapper li {
+    text-align: center;
+}
+
+.carousel-wrapper img {
+    display: inline-block;
+}

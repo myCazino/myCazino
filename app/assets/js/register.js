@@ -11,7 +11,7 @@ app.currentModule = (function($) {
                 return false;
             }
             
-            obj.find("input[type=button]").off("click").on("click", function() {
+            obj.find("#registerBtn").off("click").on("click", function() {
                 var user = new Backendless.User();
                 user.email = obj.find("input[name=mail]").val();
                 user["password"] = obj.find("input[name=pass]").val();
@@ -22,13 +22,15 @@ app.currentModule = (function($) {
             
             function userRegistered(user) {
                 console.log("user has been registered");
-                alert("register is ok!");
+                toastr.info('Вы зарегистрированы.');
+                window.location.hash = '#/author';
             }
             
             function gotError(err) // see more on error handling
             {
                 console.log("error message - " + err.message);
                 console.log("error code - " + err.statusCode);
+                toastr.error(err.message, 'Inconceivable!');
             }
             callback();
         }

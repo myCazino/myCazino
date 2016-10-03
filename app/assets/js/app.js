@@ -38,8 +38,8 @@ var app = (function ($, cont) {
 		}];
 	var pages = {};
 
-	var renderState = function () {
-		cont.html(app.state.html);
+	var renderState = function (html) {
+		cont.html(html);
 	}
 
 
@@ -54,7 +54,7 @@ var app = (function ($, cont) {
 
 		// вот тут может выдаваться ошибка "Cannot read property 'init' of undefined".
 		// подумайте, почему происходит ошибка и как от этого можно избавиться?
-		renderState();
+		renderState(app.state.html);
 		app.state.module.init(app.state.html);
 		app.menu();
 	}

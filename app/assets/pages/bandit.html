@@ -1,48 +1,56 @@
-<section class="carousel-container">
-	<select class="carousel">
-		<option value="GL">0</option>
-		<option value="DJ">1</option>
-		<option value="JM">2</option>
-		<option value="SK">3</option>
-		<option value="SY">4</option>
-		<option value="BD">5</option>
-		<option value="GL">6</option>
-		<option value="DJ">7</option>
-		<option value="JM">8</option>
-	</select>
-</section>
-<section class="carousel-container">
-	<select class="carousel">
-		<option value="GL">0</option>
-		<option value="DJ">1</option>
-		<option value="JM">2</option>
-		<option value="SK">3</option>
-		<option value="SY">4</option>
-		<option value="BD">5</option>
-		<option value="GL">6</option>
-		<option value="DJ">7</option>
-		<option value="JM">8</option>
-	</select>
-</section>
-<section class="carousel-container">
-	<select class="carousel">
-		<option value="GL">0</option>
-		<option value="DJ">1</option>
-		<option value="JM">2</option>
-		<option value="SK">3</option>
-		<option value="SY">4</option>
-		<option value="BD">5</option>
-		<option value="GL">6</option>
-		<option value="DJ">7</option>
-		<option value="JM">8</option>
-	</select>
-</section>
-
-<div style="display: block;">
-    <div>
-        <span>Ваша ставка:</span>
-        <input id="betBandit" type="text"/>
-    </div>
-    <input id="banditBtn" type="button" value="крутить"/>
-    <div id="user-amount" style="display: inline; margin-left: 30px;"></div>
+<div class="bandit">
+	<div class="row">
+		<div class="col-xs-4">
+			<ul class="carousel-wrapper">
+				<li><img src="img/zero.png" /></li>
+				<li><img src="img/one.png" /></li>
+				<li><img src="img/two.png" /></li>
+				<li><img src="img/three.png" /></li>
+				<li><img src="img/four.png" /></li>
+				<li><img src="img/five.png" /></li>
+				<li><img src="img/six.png" /></li>
+				<li><img src="img/seven.png" /></li>
+				<li><img src="img/eight.png" /></li>
+			</ul>
+		</div>
+		<div class="col-xs-4">
+			<ul class="carousel-wrapper">
+				<li><img src="img/zero.png" /></li>
+				<li><img src="img/one.png" /></li>
+				<li><img src="img/two.png" /></li>
+				<li><img src="img/three.png" /></li>
+				<li><img src="img/four.png" /></li>
+				<li><img src="img/five.png" /></li>
+				<li><img src="img/six.png" /></li>
+				<li><img src="img/seven.png" /></li>
+				<li><img src="img/eight.png" /></li>
+			</ul>
+		</div>
+		<div class="col-xs-4">
+			<ul class="carousel-wrapper">
+				<li><img src="img/zero.png" /></li>
+				<li><img src="img/one.png" /></li>
+				<li><img src="img/two.png" /></li>
+				<li><img src="img/three.png" /></li>
+				<li><img src="img/four.png" /></li>
+				<li><img src="img/five.png" /></li>
+				<li><img src="img/six.png" /></li>
+				<li><img src="img/seven.png" /></li>
+				<li><img src="img/eight.png" /></li>
+			</ul>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="form-inline">
+			<div class="form-group">
+				<label for="betBandit">Ваша ставка:</label>
+				<input id="betBandit" class="form-control" type="text" />
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<input id="banditBtn" class="btn btn-default" type="button" value="крутить" />
+		<h3>Ваш баланс: <span id="userAmount" class="label label-default"></span></h3>
+	</div>
 </div>

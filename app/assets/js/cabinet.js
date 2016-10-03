@@ -37,7 +37,32 @@ app.currentModule = (function($) {
                 //console.log(userName);
                 name.html(userName.name);
                 count.html(userCount);
-            })
+            });
+            
+            
+            $('#appCount').on('click', function() {
+                var countOld = findCategory()[0].amount;
+                var countNew = countOld + 100;
+                var data = {
+                    "amount": countNew
+                };
+                $.ajax({
+                    url: 'https://api.backendless.com/v1/data/account',
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    headers: {
+                        'application-id': app.conf.appId,
+                        'secret-key': app.conf.jsSecretKey,
+                        'user-token': Backendless.LocalCache.get("user-token")
+                    },
+                    data: JSON.stringify(data),
+                    success: function(obj) {
+                        console.log(obj);
+                        count.html(obj["amount"]);
+                    }
+                });
+            });
 
             
             

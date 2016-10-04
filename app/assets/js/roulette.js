@@ -4,84 +4,90 @@ app.currentModule = {
         var userName = Backendless.UserService.getCurrentUser();
         var $divAmount = $html.find('#userAmount');
 
-        function runCarousels() {
-            carousels.forEach(function(item) {
-                item.startAuto();
-            });
-        }
-
-        function stopCarousels(results) {
-            carousels.forEach(function(item, index) {
-                var sliderOptions = $.extend({}, carouselOptions, {
-                    startSlide: results[index],
-                    randomStart: false
-                })
-                item.reloadSlider(sliderOptions);
-            });
-        }
+        $divAmount.text(findCategory()[0].amount);
 
         $('#rouletteBtn').on('click', function() {
             var win = null;
             var oldCount = findCategory()[0].amount;
-            var num = $('#rollNum').val();
-            var st = $('#rollSt').val();
+            var nums = $('#rollNum').val().split(',');
+            console.log($('#rollNum').val());
+            var sts = $('#rollSt').val().split(',');
 
-            if (checkBet(num, st)) {
-                if (oldCount >= st) {
-                    // runCarousels();
+            if (checkBet(nums, sts)) {
 
-                    var data = {
-                        "bet": '"' + $('#rollNum').val() + ':' + $('#rollSt').val() + '"'
-                    };
+                var req = '';
+                for (var i = 0; i < nums.length; i++) {
+                    if (oldCount <= sts[i]) {
+                        alert("Ставка не может быть больше, чем у вас есть на счету!");
+                        return;
+                    }
+                    req = req + nums[i] + ':' + sts[i];
+                    if (i + 1 < nums.length) req = req + ',';
+                };
 
-                    $.ajax({
-                        url: 'https://api.backendless.com/v1/data/roulette',
-                        method: "POST",
-                        dataType: "json",
-                        contentType: "application/json",
-                        headers: {
-                            'application-id': app.conf.appId,
-                            'secret-key': app.conf.jsSecretKey,
-                            'user-token': Backendless.LocalCache.get("user-token")
-                        },
-                        data: JSON.stringify(data),
-                        success: function(obj) {
-                            render(obj.win);
-                            // console.log(obj);
+                var data = {
+                    "bet": req
+                };
+                
+                console.log(data);
 
-                            setTimeout(function() {
-                                var bonus = obj['bonus'];
-                                var newCount = oldCount + bonus;
-                                $divAmount.text(newCount);
+                $.ajax({
+                    url: 'https://api.backendless.com/v1/data/roulette',
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    headers: {
+                        'application-id': app.conf.appId,
+                        'secret-key': app.conf.jsSecretKey,
+                        'user-token': Backendless.LocalCache.get("user-token")
+                    },
+                    data: JSON.stringify(data),
+                    success: function(obj) {
+                        render(obj.win);
+                        // console.log(obj);
 
-                                if (newCount < oldCount) {
-                                    toastr.warning('Вы проиграли. Попробуйте ещё!');
-                                }
-                                else {
-                                    toastr.info('Вы выиграли!');
-                                }
-                            }, 8000);
-                        }
-                    });
-                }
-                else {
-                    alert("Ставка не может быть больше, чем у вас есть на счету!");
-                }
+                        setTimeout(function() {
+                            var bonus = obj['bonus'];
+                            var newCount = oldCount + bonus;
+                            $divAmount.text(newCount);
+
+                            if (newCount < oldCount) {
+                                toastr.warning('Вы проиграли. Попробуйте ещё!');
+                            }
+                            else {
+                                toastr.info('Вы выиграли!');
+                            }
+                        }, 8000);
+                    }
+                });
             }
             else {
                 alert('Вы не ввели номер ячейки или не сделали ставку');
             }
-
         });
 
 
         function checkBet(num, st) {
-            if (num == null || num == "" || st == null || st == "") {
-                return false;
+            var res = false;
+            console.log(num);
+            if (num.length <= 37 && num.length == st.length) {
+                for (var i = 0; i < num.length; i++) {
+
+                    if (num[i] == null || num[i] == "" || st[i] == null || st[i] == "") {
+                        res = false;
+                    }
+                    else if (isNaN(num[i]) || isNaN(st[i])) {
+                        res = false;
+                    }
+                    else if (num[i] < 0 || num[i] > 36 || st[i] <= 0) {
+                        res = false;
+                    }
+                    else {
+                        res = true;
+                    }
+                }
             }
-            else {
-                return true;
-            }
+            return res;
         }
 
         function findCategory() {

@@ -6,13 +6,8 @@ app.currentModule = {
 		var currentIndex;
 		var userName = Backendless.UserService.getCurrentUser();
 		var $divAmount = $html.find('#userAmount');
-
-		$divAmount.text(findCategory()[0].amount);
-
-		carousels.length = 0;
-
-		$html.find('.carousel-wrapper').each(function() {
-			var slider = $(this).bxSlider({
+		
+		var carouselOptions = {
 				mode: 'vertical',
 				randomStart: true,
 				touchEnabled: false,
@@ -22,7 +17,14 @@ app.currentModule = {
 				autoStart: false,
 				pause: 50,
 				speed: 10
-			});
+		};
+
+		$divAmount.text(findCategory()[0].amount);
+
+		carousels.length = 0;
+
+		$html.find('.carousel-wrapper').each(function() {
+			var slider = $(this).bxSlider(carouselOptions);
 
 			carousels.push(slider);
 		});
@@ -33,15 +35,13 @@ app.currentModule = {
 			});
 		}
 
-		function stopCarousels() {
-			carousels.forEach(function(item) {
-				item.stopAuto();
-			});
-		}
-
-		function setValuesToCarousels(results) {
+		function stopCarousels(results) {
 			carousels.forEach(function(item, index) {
-				item.goToSlide(results[index]);
+				var sliderOptions = $.extend({}, carouselOptions, {
+					startSlide: results[index],
+					randomStart: false
+				})
+				item.reloadSlider(sliderOptions);
 			});
 		}
 
@@ -68,8 +68,7 @@ app.currentModule = {
 						},
 						data: JSON.stringify(data),
 						success: function(obj) {
-							stopCarousels();
-							setValuesToCarousels([obj.slot1, obj.slot2, obj.slot3]);
+							stopCarousels([obj.slot1, obj.slot2, obj.slot3]);
 							var bonus = obj['bonus'];
 							var newCount = oldCount + bonus;
 							$divAmount.text(newCount);

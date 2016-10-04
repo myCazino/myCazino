@@ -68,6 +68,11 @@ gulp.task('rigger', function() {
 
 });
 
+gulp.task('copyImg', function() {
+    gulp.src(config.src.main + config.src.img + '/**/*.png')
+        .pipe(gulp.dest(config.dest.main + config.dest.img));
+});
+
 // задача browser-sync - запуск сервера для отображения изменений в файлах в режиме онлайн (не надо рефрешить)
 gulp.task('browser-sync', function() { // Создаем таск browser-sync
     browserSync({ // Выполняем browser Sync
@@ -79,7 +84,7 @@ gulp.task('browser-sync', function() { // Создаем таск browser-sync
 });
 
 // задача reload - перезапускает browser-sync для корректного отображения изменений
-gulp.task('reload', ['rigger', 'mainfiles'], function() {
+gulp.task('reload', ['rigger','copyImg', 'mainfiles'], function() {
     browserSync.reload();
 });
 
@@ -108,7 +113,7 @@ gulp.task('clean', function() {
 
 // в случае изменения сущестующих или появления новых файлов - выполняем задачи js(вывод в консоль сообщения) и reload - перезапуск browser-sync 
 // аналогично по css и html
-gulp.task('watch', ['clean', 'browser-sync', 'prefix', 'js', 'css', 'html', 'rigger', 'mainfiles'], function() {
+gulp.task('watch', ['clean', 'browser-sync', 'prefix', 'js', 'css', 'html', 'rigger','copyImg', 'mainfiles'], function() {
     gulp.watch(config.src.main + config.src.js + '**/*.js', ['js', 'reload']);
     gulp.watch(config.src.main + config.src.css + '**/*.css', ['prefix', 'css', 'reload']);
     gulp.watch(config.src.main + '**/*.html', ['html', 'reload']);

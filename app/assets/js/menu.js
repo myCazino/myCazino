@@ -23,6 +23,7 @@ var menu = (function($) {
                     <li><a href="#/" data-src="assets/pages/index.html" data-js="assets/js/index.js">О приложении</a></li>
                     <li><a href="#/bandit">Однорукий бандит</a></li>
                     <li><a href="#/fortuna" data-src="assets/pages/fortuna.html" data-js="assets/js/fortuna.js">Колесо фортуны</a></li>
+                    <li><a href="#/roulette" data-src="assets/pages/roulette.html" >Рулетка</a></li>
                 `);
                 
                 $menuRight.html(`

@@ -35,6 +35,12 @@ var app = (function ($, cont) {
 			src: "assets/pages/bandit.html",
 			js: "assets/js/bandit.js"
 			
+		},
+		{
+			href: "#/roulette",
+			src: "assets/pages/roulette.html",
+			js: "assets/js/roulette.js"
+			
 		}];
 	var pages = {};
 

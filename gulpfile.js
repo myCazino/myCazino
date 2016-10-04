@@ -102,7 +102,7 @@ gulp.task('clean', function() {
     //      .pipe(clean({force: true}));
     // gulp.src(config.dest.main+'*', {read: false})
     //      .pipe(clean({force: true}));
-    del.sync(config.dest.main + "**/*");
+    del.sync(config.dest.main + "/assets/" + "**/*");
 })
 
 

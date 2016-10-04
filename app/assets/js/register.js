@@ -10,22 +10,22 @@ app.currentModule = (function($) {
             callback = callback || function() {
                 return false;
             }
-            
+
             obj.find("#registerBtn").off("click").on("click", function() {
                 var user = new Backendless.User();
                 user.email = obj.find("input[name=mail]").val();
                 user["password"] = obj.find("input[name=pass]").val();
                 user.name = obj.find("input[name=first_name]").val();
                 //Backendless.UserService.register(user);
-                Backendless.UserService.register( user, new Backendless.Async( userRegistered, gotError ) );
+                Backendless.UserService.register(user, new Backendless.Async(userRegistered, gotError));
             });
-            
+
             function userRegistered(user) {
                 console.log("user has been registered");
                 toastr.info('Вы зарегистрированы.');
                 window.location.hash = '#/author';
             }
-            
+
             function gotError(err) // see more on error handling
             {
                 console.log("error message - " + err.message);
@@ -36,6 +36,3 @@ app.currentModule = (function($) {
         }
     }
 })(jQuery);
-
-    
-

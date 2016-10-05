@@ -7,4 +7,9 @@
 #container h2 {
     text-align: center;
 }
-
+#strelka {
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    background-color: black;
+}

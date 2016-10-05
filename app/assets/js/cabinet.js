@@ -34,7 +34,7 @@ app.currentModule = (function($) {
             var name = obj.find('#name');
             var count = obj.find('#count');
             $(document).ready(function() {
-                //console.log(userName);
+                //console.log(name);
                 name.html(userName.name);
                 count.html(userCount);
             });
@@ -100,12 +100,12 @@ app.currentModule = (function($) {
 
            
 
-            obj.find("input[id=uppBalans]").off("click").on("click", function() {
-                // var user = new Backendless.User();
-                //user.name = obj.find("input[name=first_name]").val();
-                // var zzz = Backendless.UserService.login(email,pass, true, new Backendless.Async( userLoggedIn, gotError ) );
-                //console.log(user);
-            });
+            // obj.find("input[id=uppBalans]").off("click").on("click", function() {
+            //     var user = new Backendless.User();
+            //     user.name = obj.find("input[name=first_name]").val();
+            //     var zzz = Backendless.UserService.login(email,pass, true, new Backendless.Async( userLoggedIn, gotError ) );
+            //     console.log(user);
+            // });
 
             function userLoggedIn(user) {
                 console.log("user has been authorised");

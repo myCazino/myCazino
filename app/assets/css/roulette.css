@@ -1,3 +1,49 @@
+.tableR {
+  border-spacing: 0;
+  /*border: 1px solid;*/
+  border-radius: 10px;
+}
+.tableR td, .tableR th {
+  padding: 10px;
+  /*border-left: 1px solid;*/
+  /*border-top: 1px solid;*/
+}
+
+.tableR td {
+  background: black;
+  color: white;
+  border: 1px solid;
+  border-color: white;
+  font-weight: bold
+}
+
+.tableR th {
+  background: red;
+  color: white;
+  border: 1px solid;
+  border-color: white;
+}
+.tableR td:first-child, .tableR th:first-child {
+  border-left: none;
+}
+
+.tableR th:first-child {
+  /*border-top-left-radius: 10px;*/
+}
+.tableR th:last-child {
+  /*border-top-right-radius: 10px;*/
+}
+
+.circle {
+    width: 24px;
+    height: 24px;
+    background: #7fee1d;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    /*font-size: 11px;*/
+}
+
 #wrapper {
   overflow: hidden;
   display: -webkit-flex;

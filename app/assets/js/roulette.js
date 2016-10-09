@@ -6,12 +6,32 @@ app.currentModule = {
 
         $divAmount.text(findCategory()[0].amount);
 
+        $('div[name="stv"]').on('click', function() {
+            this.value = prompt('Введите ставку', 0);
+            if (!isNaN(this.value) && this.value > 0) {
+                this.innerHTML = '$' + this.value;
+                this.className = "circle";
+            } else if (this.value == 0) {
+                this.innerHTML = this.id;
+                this.className = '';
+            }
+        });
+
         $('#rouletteBtn').on('click', function() {
             var win = null;
             var oldCount = findCategory()[0].amount;
-            var nums = $('#rollNum').val().split(',');
-            console.log($('#rollNum').val());
-            var sts = $('#rollSt').val().split(',');
+            var nums = new Array();
+            var sts = new Array();
+
+            var stvs = document.getElementsByName('stv');
+            for (var i = 0; i < stvs.length; i++) {
+                if (!isNaN(stvs[i].value) && stvs[i].value > 0) {
+                    sts.push(stvs[i].value);
+                    nums.push(stvs[i].id);
+                }
+            }
+
+            console.log(sts);
 
             if (checkBet(nums, sts)) {
 
@@ -28,7 +48,7 @@ app.currentModule = {
                 var data = {
                     "bet": req
                 };
-                
+
                 console.log(data);
 
                 $.ajax({

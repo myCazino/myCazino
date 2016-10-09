@@ -9,8 +9,8 @@ app.currentModule = {
         $('div[name="stv"]').on('click', function() {
             this.value = prompt('Введите ставку', 0);
             if (!isNaN(this.value) && this.value > 0) {
-                this.innerHTML = '$' + this.value;
-                this.className = "circle";
+                this.innerHTML = this.id + '<div class="circle">'+ '$' + this.value + '</div>';
+                // this.className = "circle";
             } else if (this.value == 0) {
                 this.innerHTML = this.id;
                 this.className = '';

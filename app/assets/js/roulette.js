@@ -18,6 +18,17 @@ app.currentModule = {
             }
         });
 
+        $('#resetBtn').on('click', function() {
+            var stvs = document.getElementsByName('stv');
+            for (var i = 0; i < stvs.length; i++) {
+                if (!isNaN(stvs[i].value) && stvs[i].value > 0) {
+                    stvs[i].value == 0;
+                    stvs[i].innerHTML = stvs[i].id;
+                    stvs[i].className = '';
+                }
+            }
+        });
+
         $('#rouletteBtn').on('click', function() {
             var win = null;
             var oldCount = findCategory()[0].amount;
@@ -37,14 +48,22 @@ app.currentModule = {
             if (checkBet(nums, sts)) {
 
                 var req = '';
+                var sum = 0;
+
+                for (var i = 0; i < sts.length; i++) {
+                    sum + sts[i];
+                }
+
+                if (oldCount <= sum) {
+                    alert("Ставка не может быть больше, чем у вас есть на счету!");
+                    return;
+                }
+
                 for (var i = 0; i < nums.length; i++) {
-                    if (oldCount <= sts[i]) {
-                        alert("Ставка не может быть больше, чем у вас есть на счету!");
-                        return;
-                    }
                     req = req + nums[i] + ':' + sts[i];
                     if (i + 1 < nums.length) req = req + ',';
                 };
+
 
                 var data = {
                     "bet": req
@@ -165,7 +184,7 @@ app.currentModule = {
                 }
             });
         };
-        
+
         refreshTable();
 
         setInterval(refreshTable, 5000);

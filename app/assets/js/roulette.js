@@ -43,16 +43,16 @@ app.currentModule = {
                 }
             }
 
-            console.log(sts);
-
             if (checkBet(nums, sts)) {
 
                 var req = '';
                 var sum = 0;
 
                 for (var i = 0; i < sts.length; i++) {
-                    sum + sts[i];
+                    sum = +sum + +sts[i];
                 }
+                
+                console.log('Сумма ставок: '+ sum);
 
                 if (oldCount <= sum) {
                     alert("Ставка не может быть больше, чем у вас есть на счету!");

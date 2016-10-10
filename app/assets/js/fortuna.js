@@ -60,7 +60,7 @@ app.currentModule = (function($) {
                 }
             }
 
-            
+
             $('#spin').on('click', function() {
                 var win = randomInteger(360, 720);
                 var oldCount = findCategory()[0].amount;
@@ -99,6 +99,7 @@ app.currentModule = (function($) {
                                 else {
                                     toastr.info('Вы выиграли!');
                                 }
+                                refreshTable();
                             }
                         });
                     }
@@ -114,6 +115,32 @@ app.currentModule = (function($) {
                 $('#canvas').css('transform', 'rotate(' + win + 'deg)');
 
             });
+
+            var refreshTable = function() {
+                $.ajax({
+                    url: 'https://api.backendless.com/v1/data/fortune?pageSize=10',
+                    method: "GET",
+                    headers: {
+                        "application-id": app.conf.appId,
+                        "secret-key": app.conf.jsSecretKey,
+                        'user-token': Backendless.LocalCache.get("user-token")
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        var tbodyKoleso = obj.find('.kolesoBody');
+                        tbodyKoleso.empty();
+                        data.data.forEach(function(item) {
+                            var tr = $("<tr></tr>");
+                            tr.append("<td>" + item.bet + "</td>")
+                                .append("<td>" + item.bonus + "</td>");
+                            tbodyKoleso.append(tr);
+                        });
+                    }
+                });
+            }
+
+            refreshTable();
+            setInterval(refreshTable, 5000);
         }
     };
 })(jQuery);

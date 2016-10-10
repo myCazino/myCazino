@@ -5,11 +5,24 @@
     <label for="stavka">Ваша ставка</label>
     <input type="text" id="stavka">
     <input type="button" value="Крутить колесо" id='spin' />
-   <div id="coleso" style="position:relative; float: right;">
+    <div id="coleso" style="position:relative; float: right;">
         <div id="strelka" style="position: absolute; left:300px;
     width: 10px;
     height: 20px;
     background-color: black;"></div>
-    <img src="http://heartofscylla.clan.su/Pictures/wof2.png" id="canvas" style="transition: transform 2s linear; width:400px; height:400px; margin-left:100px; margin-bottom:30px; margin-top:20px;"></img>
-   </div>
+        <img src="http://heartofscylla.clan.su/Pictures/wof2.png" id="canvas" style="transition: transform 2s linear; width:400px; height:400px; margin-left:100px; margin-bottom:30px; margin-top:20px;"></img>
+    </div>
+</div>
+<div class="row" style="float:left; padding:15px;">
+    <h1>История игр:</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Ставка</th>
+                <th>Результат</th>
+            </tr>
+        </thead>
+        <tbody class="kolesoBody">
+        </tbody>
+    </table>
 </div>

@@ -23,6 +23,7 @@ app.currentModule = (function($) {
             function userLoggedIn(user) {
                 console.log("user has been authorised");
                 menu.renderMenu();
+                window.location.hash = '#/';
             }
             
             function gotError(err) // see more on error handling

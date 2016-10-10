@@ -9,9 +9,10 @@ app.currentModule = {
         $('div[name="stv"]').on('click', function() {
             this.value = prompt('Введите ставку', 0);
             if (!isNaN(this.value) && this.value > 0) {
-                this.innerHTML = this.id + '<div class="circle">'+ '$' + this.value + '</div>';
+                this.innerHTML = this.id + '<div class="circle">' + '$' + this.value + '</div>';
                 // this.className = "circle";
-            } else if (this.value == 0) {
+            }
+            else if (this.value == 0) {
                 this.innerHTML = this.id;
                 this.className = '';
             }
@@ -77,6 +78,7 @@ app.currentModule = {
                             else {
                                 toastr.info('Вы выиграли!');
                             }
+                            refreshTable();
                         }, 8000);
                     }
                 });
@@ -139,6 +141,34 @@ app.currentModule = {
                 document.getElementById('roulette').style.animation = '0';
             }, 8000);
         }
+
+
+        var refreshTable = function() {
+            $.ajax({
+                url: 'https://api.backendless.com/v1/data/roulette?pageSize=10',
+                method: "GET",
+                headers: {
+                    "application-id": app.conf.appId,
+                    "secret-key": app.conf.jsSecretKey,
+                    'user-token': Backendless.LocalCache.get("user-token")
+                },
+                dataType: "json",
+                success: function(data) {
+                    var tbodyRulet = $html.find('.ruletBody');
+                    tbodyRulet.empty();
+                    data.data.forEach(function(item) {
+                        var tr = $("<tr></tr>");
+                        tr.append("<td>" + item.bet + "</td>")
+                            .append("<td>" + item.bonus + "</td>");
+                        tbodyRulet.append(tr);
+                    });
+                }
+            });
+        };
+        
+        refreshTable();
+
+        setInterval(refreshTable, 5000);
 
     }
 };

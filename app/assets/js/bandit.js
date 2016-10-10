@@ -6,17 +6,17 @@ app.currentModule = {
 		var currentIndex;
 		var userName = Backendless.UserService.getCurrentUser();
 		var $divAmount = $html.find('#userAmount');
-		
+
 		var carouselOptions = {
-				mode: 'vertical',
-				randomStart: true,
-				touchEnabled: false,
-				pager: false,
-				controls: false,
-				auto: true,
-				autoStart: false,
-				pause: 50,
-				speed: 10
+			mode: 'vertical',
+			randomStart: true,
+			touchEnabled: false,
+			pager: false,
+			controls: false,
+			auto: true,
+			autoStart: false,
+			pause: 50,
+			speed: 10
 		};
 
 		$divAmount.text(findCategory()[0].amount);
@@ -71,8 +71,14 @@ app.currentModule = {
 							stopCarousels([obj.slot1, obj.slot2, obj.slot3]);
 							var bonus = obj['bonus'];
 							var newCount = oldCount + bonus;
+							//debugger;
+							//setTimeout(function(){
+							//localStorage.setItem("ChangeGame", new Date());
+							//}, 1000);
+							refreshTable();
+
 							$divAmount.text(newCount);
-							
+
 							if (newCount < oldCount) {
 								toastr.warning('Вы проиграли. Попробуйте ещё!');
 							}
@@ -114,5 +120,31 @@ app.currentModule = {
 
 			return arrayOfItems;
 		}
+
+		var refreshTable = function() {
+			$.ajax({
+				url: 'https://api.backendless.com/v1/data/bandit?pageSize=10',
+				method: "GET",
+				headers: {
+					"application-id": app.conf.appId,
+					"secret-key": app.conf.jsSecretKey,
+					'user-token': Backendless.LocalCache.get("user-token")
+				},
+				dataType: "json",
+				success: function(data) {
+					var tbodyBandit = $html.find('.banditBody');
+					tbodyBandit.empty();
+					data.data.forEach(function(item) {
+						var tr = $("<tr></tr>");
+						tr.append("<td>" + item.bet + "</td>")
+							.append("<td>" + item.bonus + "</td>");
+						tbodyBandit.append(tr);
+					});
+				}
+			});
+		}
+		
+		refreshTable();
+		setInterval(refreshTable, 5000);
 	}
 };

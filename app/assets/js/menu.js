@@ -7,6 +7,7 @@ var menu = (function($) {
     
         function userLoggedout() {
             menu.renderMenu();
+            window.location.hash = '#/author';
         }
     
         function gotError(err) {
@@ -31,7 +32,7 @@ var menu = (function($) {
                     <li class="logout"><a href="#">LogOut</a></li>
                 `);
                 
-                window.location.hash = '#/';
+                //window.location.hash = '#/';
             }
             else {
                 $menuRight.empty();
@@ -40,7 +41,7 @@ var menu = (function($) {
                     <li><a href="#/author" data-src="assets/pages/author.html" data-js="assets/js/author.js">Авторизация</a></li>
                     <li><a href="#/register" data-src="assets/pages/register.html" data-js="assets/js/register.js">Регистрация</a></li>
                 `);
-                window.location.hash = '#/author';
+                //window.location.hash = '#/author';
             }
         }
     }

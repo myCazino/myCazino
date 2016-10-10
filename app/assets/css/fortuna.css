@@ -1,15 +1,17 @@
-#container {
-    width: 100%;
-    min-height: 600px;
-   background-color: #f8f8f8;
+.colesoBlock {
+    position: relative;
 }
-
-#container h2 {
-    text-align: center;
-}
-#strelka {
-    position: absolute;
+.arrow {
+    position: absolute; 
+    left: 50%;
+    top: -20px;
     width: 10px;
     height: 20px;
     background-color: black;
+}
+#canvas {
+    transition: transform 2s linear; 
+    width:400px; 
+    height:400px; 
+    margin-top:20px;
 }

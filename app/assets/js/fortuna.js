@@ -59,6 +59,53 @@ app.currentModule = (function($) {
                     return true;
                 }
             }
+            
+            $('#canvas').on('click', function() {
+                var win = randomInteger(360, 720);
+                var oldCount = findCategory()[0].amount;
+                var bet = $('#stavka').val();
+
+                if (checkBet(bet)) {
+                    if (oldCount >= bet) {
+
+                        var data = {
+                            "bet": $('#stavka').val()
+                        };
+                        $.ajax({
+                            url: 'https://api.backendless.com/v1/data/fortune',
+                            method: "POST",
+                            dataType: "json",
+                            contentType: "application/json",
+                            headers: {
+                                'application-id': app.conf.appId,
+                                'secret-key': app.conf.jsSecretKey,
+                                'user-token': Backendless.LocalCache.get("user-token")
+                            },
+                            data: JSON.stringify(data),
+                            success: function(obj) {
+                                win = obj['win'] * 180;
+                                var bonus = obj['bonus'];
+                                var newCount = oldCount + bonus;
+                                $countF.text('Ваш балланс: ' + newCount);
+                                $('#canvas').css('transform', 'rotate(' + win + 'deg)');
+                                console.log(userCount + obj['bonus']);
+                                if (obj['bonus'] <= 0) {
+                                    toastr.warning('Вы проиграли. Попробуйте ещё!');
+                                }
+                                else {
+                                    toastr.info('Вы выиграли!');
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        alert("Ставка не может быть больше, чем у вас есть на счету!");
+                    }
+                }
+                else {
+                    alert('Сделайте ставку!');
+                }
+            });
 
 
             $('#spin').on('click', function() {
@@ -88,10 +135,8 @@ app.currentModule = (function($) {
                                 var bonus = obj['bonus'];
                                 var newCount = oldCount + bonus;
                                 $countF.text('Ваш балланс: ' + newCount);
+                                $('#canvas').css('transform', 'rotate(' + win + 'deg)');
                                 console.log(obj['bonus']);
-                                //console.log(obj['win']);
-                                //console.log(win);
-                                //userCount += obj['bonus'];
                                 console.log(userCount + obj['bonus']);
                                 if (obj['bonus'] <= 0) {
                                     toastr.warning('Вы проиграли. Попробуйте ещё!');
@@ -110,10 +155,6 @@ app.currentModule = (function($) {
                 else {
                     alert('Сделайте ставку!');
                 }
-
-                //$('#canvas').css('transform', 'rotate(360deg)');
-                $('#canvas').css('transform', 'rotate(' + win + 'deg)');
-
             });
 
             var refreshTable = function() {

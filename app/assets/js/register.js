@@ -10,13 +10,22 @@ app.currentModule = (function($) {
             callback = callback || function() {
                 return false;
             }
+            
+            $('#exampleInputPassword1').keydown(function(eventObject) {
+                if (eventObject.which == 13) {
+                    var user = new Backendless.User();
+                    user.email = obj.find("input[name=mail]").val();
+                    user["password"] = obj.find("input[name=pass]").val();
+                    user.name = obj.find("input[name=first_name]").val();
+                    Backendless.UserService.register(user, new Backendless.Async(userRegistered, gotError));
+                }
+            });
 
             obj.find("#registerBtn").off("click").on("click", function() {
                 var user = new Backendless.User();
                 user.email = obj.find("input[name=mail]").val();
                 user["password"] = obj.find("input[name=pass]").val();
                 user.name = obj.find("input[name=first_name]").val();
-                //Backendless.UserService.register(user);
                 Backendless.UserService.register(user, new Backendless.Async(userRegistered, gotError));
             });
 

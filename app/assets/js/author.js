@@ -11,6 +11,14 @@ app.currentModule = (function($) {
                 return false;
             }
             
+            $('#exampleInputPassword1').keydown(function(eventObject) {
+                if (eventObject.which == 13) {
+                    var email = obj.find("input[name=mail]").val();
+                    var pass = obj.find("input[name=pass]").val();
+                    Backendless.UserService.login(email, pass, true, new Backendless.Async(userLoggedIn, gotError));
+                }
+            });
+            
             obj.find("#auth").off("click").on("click", function() {
                 //var user = new Backendless.User();
                 //debugger;

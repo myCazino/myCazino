@@ -48,9 +48,10 @@ app.currentModule = {
 		$('#banditBtn').on('click', function() {
 			var oldCount = findCategory()[0].amount;
 			var bet = $('#betBandit').val();
-
+			
 			if (checkBet(bet)) {
 				if (oldCount >= bet) {
+					$('#banditBtn').prop('disabled', true);
 					runCarousels();
 					var data = {
 						"bet": $('#betBandit').val()
@@ -71,13 +72,10 @@ app.currentModule = {
 							stopCarousels([obj.slot1, obj.slot2, obj.slot3]);
 							var bonus = obj['bonus'];
 							var newCount = oldCount + bonus;
-							//debugger;
-							//setTimeout(function(){
-							//localStorage.setItem("ChangeGame", new Date());
-							//}, 1000);
 							refreshTable();
 
 							$divAmount.text(newCount);
+							$('#banditBtn').prop('disabled', false);
 
 							if (newCount < oldCount) {
 								toastr.warning('Вы проиграли. Попробуйте ещё!');
@@ -93,12 +91,12 @@ app.currentModule = {
 				}
 			}
 			else {
-				toastr.warning('Сделайте ставку!');
+				toastr.warning('Ставка не верна!');
 			}
 		});
 
 		function checkBet(bet) {
-			if (bet == null || bet == "") {
+			if (bet == null || bet == "" || (typeof bet != 'number') || bet <= 0) {
 				return false;
 			}
 			else {

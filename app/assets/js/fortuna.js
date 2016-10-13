@@ -67,7 +67,6 @@ app.currentModule = (function($) {
                 var bet = $('#stavka').val();
                 if (checkBet(bet)) {
                     if (oldCount >= bet) {
-                        $('#canvas').prop('disabled', true);
                         var data = {
                             "bet": $('#stavka').val()
                         };

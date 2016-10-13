@@ -52,22 +52,22 @@ app.currentModule = (function($) {
             }
 
             function checkBet(bet) {
-                if (bet == null || bet == "") {
-                    return false;
-                }
-                else {
+                var reg = /^[1-9]+$/;
+                if (reg.test(bet)) {
                     return true;
                 }
+                else {
+                    return false;
+                }
             }
-            
+
             $('#canvas').on('click', function() {
                 var win = randomInteger(360, 720);
                 var oldCount = findCategory()[0].amount;
                 var bet = $('#stavka').val();
-
                 if (checkBet(bet)) {
                     if (oldCount >= bet) {
-
+                        $('#canvas').prop('disabled', true);
                         var data = {
                             "bet": $('#stavka').val()
                         };
@@ -88,22 +88,24 @@ app.currentModule = (function($) {
                                 var newCount = oldCount + bonus;
                                 $countF.text('Ваш балланс: ' + newCount);
                                 $('#canvas').css('transform', 'rotate(' + win + 'deg)');
-                                console.log(userCount + obj['bonus']);
-                                if (obj['bonus'] <= 0) {
-                                    toastr.warning('Вы проиграли. Попробуйте ещё!');
-                                }
-                                else {
-                                    toastr.info('Вы выиграли!');
-                                }
+                                setTimeout(function() {
+                                    if (obj['bonus'] <= 0) {
+                                        toastr.warning('Вы проиграли. Попробуйте ещё!');
+                                    }
+                                    else {
+                                        toastr.info('Вы выиграли!');
+                                    }
+                                }, 2500);
+                                refreshTable();
                             }
                         });
                     }
                     else {
-                        alert("Ставка не может быть больше, чем у вас есть на счету!");
+                        toastr.warning("Ставка не может быть больше, чем у вас есть на счету!");
                     }
                 }
                 else {
-                    alert('Сделайте ставку!');
+                    toastr.warning('Ставка не верна!');
                 }
             });
 
@@ -115,7 +117,6 @@ app.currentModule = (function($) {
 
                 if (checkBet(bet)) {
                     if (oldCount >= bet) {
-
                         var data = {
                             "bet": $('#stavka').val()
                         };
@@ -136,24 +137,25 @@ app.currentModule = (function($) {
                                 var newCount = oldCount + bonus;
                                 $countF.text('Ваш балланс: ' + newCount);
                                 $('#canvas').css('transform', 'rotate(' + win + 'deg)');
-                                console.log(obj['bonus']);
-                                console.log(userCount + obj['bonus']);
-                                if (obj['bonus'] <= 0) {
-                                    toastr.warning('Вы проиграли. Попробуйте ещё!');
-                                }
-                                else {
-                                    toastr.info('Вы выиграли!');
-                                }
+                                setTimeout(function() {
+                                    if (obj['bonus'] <= 0) {
+                                        toastr.warning('Вы проиграли. Попробуйте ещё!');
+                                    }
+                                    else {
+                                        toastr.info('Вы выиграли!');
+                                    }
+                                }, 2500);
+
                                 refreshTable();
                             }
                         });
                     }
                     else {
-                        alert("Ставка не может быть больше, чем у вас есть на счету!");
+                        toastr.warning("Ставка не может быть больше, чем у вас есть на счету!");
                     }
                 }
                 else {
-                    alert('Сделайте ставку!');
+                    toastr.warning('Сделайте ставку!');
                 }
             });
 

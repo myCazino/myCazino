@@ -96,7 +96,8 @@ app.currentModule = {
 		});
 
 		function checkBet(bet) {
-			if (bet == null || bet == "" || (typeof bet != 'number') || bet <= 0) {
+			debugger;
+			if (bet == null || bet == "" || (typeof Number(bet) != 'number') || bet <= 0) {
 				return false;
 			}
 			else {

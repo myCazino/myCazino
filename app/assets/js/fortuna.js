@@ -67,6 +67,8 @@ app.currentModule = (function($) {
                 var bet = $('#stavka').val();
                 if (checkBet(bet)) {
                     if (oldCount >= bet) {
+                        $('#spin').attr('disabled', true);
+                        $('#canvas').attr('disabled', true);
                         var data = {
                             "bet": $('#stavka').val()
                         };
@@ -88,6 +90,8 @@ app.currentModule = (function($) {
                                 $countF.text('Ваш балланс: ' + newCount);
                                 $('#canvas').css('transform', 'rotate(' + win + 'deg)');
                                 setTimeout(function() {
+                                    $('#spin').removeAttr('disabled');
+                                    $('#canvas').removeAttr('disabled');
                                     if (obj['bonus'] <= 0) {
                                         toastr.warning('Вы проиграли. Попробуйте ещё!');
                                     }
@@ -95,6 +99,7 @@ app.currentModule = (function($) {
                                         toastr.info('Вы выиграли!');
                                     }
                                 }, 2500);
+                            
                                 refreshTable();
                             }
                         });
@@ -113,9 +118,9 @@ app.currentModule = (function($) {
                 var win = randomInteger(360, 720);
                 var oldCount = findCategory()[0].amount;
                 var bet = $('#stavka').val();
-
                 if (checkBet(bet)) {
                     if (oldCount >= bet) {
+                        $('#spin').attr('disabled', true);
                         var data = {
                             "bet": $('#stavka').val()
                         };
@@ -137,6 +142,7 @@ app.currentModule = (function($) {
                                 $countF.text('Ваш балланс: ' + newCount);
                                 $('#canvas').css('transform', 'rotate(' + win + 'deg)');
                                 setTimeout(function() {
+                                    $('#spin').removeAttr('disabled');
                                     if (obj['bonus'] <= 0) {
                                         toastr.warning('Вы проиграли. Попробуйте ещё!');
                                     }
@@ -144,7 +150,7 @@ app.currentModule = (function($) {
                                         toastr.info('Вы выиграли!');
                                     }
                                 }, 2500);
-
+                            
                                 refreshTable();
                             }
                         });
@@ -156,6 +162,7 @@ app.currentModule = (function($) {
                 else {
                     toastr.warning('Сделайте ставку!');
                 }
+                
             });
 
             var refreshTable = function() {
